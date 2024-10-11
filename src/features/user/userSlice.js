@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserDetails } from "../../api/userApi";
+import { getAvatarUrl } from "../../helpers/userHelpers";
 
 const userSlice = createSlice({
   name: "users",
@@ -32,8 +33,13 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
+        // Map through the user data and include the avatar URL
+        const usersWithAvatars = action.payload.map((user) => ({
+          ...user,
+          avatarUrl: getAvatarUrl(user.username), // Add avatar URL directly in the Redux state
+        }));
+        state.users = usersWithAvatars;
         state.loading = false;
-        state.users = action.payload;
         state.error = null;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
