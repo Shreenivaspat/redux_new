@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteUser,
-  setEditUser,
-  updateUser,
-} from "../../features/user/userSlice";
+import { deleteUser } from "../../features/user/userSlice";
 import UserCardItem from "../common/UserCardItem";
 import EditUserModal from "../common/EditUserModal";
 import { Skeleton } from "antd";
 import { fetchUserDetails } from "../../api/userApi";
+import useEditUserModal from "../../hooks/useEditUserModal";
 
 const UserCard = () => {
   const dispatch = useDispatch();
   const { users, loading } = useSelector((state) => state.users);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editedUserData, setEditedUserData] = useState({});
+
+  // Use the custom hook
+  const {
+    isModalVisible,
+    handleEditClick,
+    handleCancel,
+    handleOk,
+    editedUserData,
+    setEditedUserData,
+  } = useEditUserModal();
 
   useEffect(() => {
     dispatch(fetchUserDetails());
@@ -22,26 +27,6 @@ const UserCard = () => {
 
   const handleDeleteClick = (userId) => {
     dispatch(deleteUser(userId));
-  };
-
-  const handleEditClick = (user) => {
-    dispatch(setEditUser(user));
-    setIsModalVisible(true);
-    setEditedUserData(user);
-  };
-
-  const handleCancel = () => {
-    dispatch(setEditUser(null));
-    setIsModalVisible(false);
-    setEditedUserData({});
-  };
-
-  const handleOk = () => {
-    dispatch(
-      updateUser({ id: editedUserData.id, updatedData: editedUserData })
-    );
-    setIsModalVisible(false);
-    setEditedUserData({});
   };
 
   const renderCards = () => {
