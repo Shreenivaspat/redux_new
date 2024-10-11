@@ -35,7 +35,7 @@ const UserCardItem = ({ user, handleEditClick, handleDeleteClick }) => {
       className="user-card"
       actions={[
         <HeartFilled
-          key="heart" // Key assigned to the HeartFilled icon
+          key="heart"
           style={{ color: heartColor }}
           onClick={handleHeartClick}
         />,
