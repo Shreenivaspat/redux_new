@@ -1,14 +1,13 @@
-import './App.css'
+import "./App.css";
+
+import UserDashBoard from "./pages/userDashboard/UserDashBoard";
 
 function App() {
-
-
   return (
     <>
-      <h1>Hello</h1>
-
+      <UserDashBoard />
     </>
   );
 }
 
-export default App
+export default App;
