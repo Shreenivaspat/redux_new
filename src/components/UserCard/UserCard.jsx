@@ -6,6 +6,7 @@ import EditUserModal from "../common/EditUserModal";
 import { Skeleton } from "antd";
 import { fetchUserDetails } from "../../api/userApi";
 import useEditUserModal from "../../hooks/useEditUserModal";
+import "./UserCard.css";
 
 const UserCard = () => {
   const dispatch = useDispatch();

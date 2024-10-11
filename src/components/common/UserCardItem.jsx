@@ -18,11 +18,12 @@ const UserCardItem = ({ user, handleEditClick, handleDeleteClick }) => {
 
   UserCardItem.propTypes = {
     user: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      email: PropTypes.string,
-      phone: PropTypes.string,
-      website: PropTypes.string,
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      website: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
     }).isRequired,
     handleEditClick: PropTypes.func.isRequired,
     handleDeleteClick: PropTypes.func.isRequired,
@@ -34,23 +35,21 @@ const UserCardItem = ({ user, handleEditClick, handleDeleteClick }) => {
       className="user-card"
       actions={[
         <HeartFilled
-          key="heart"
+          key="heart" // Key assigned to the HeartFilled icon
           style={{ color: heartColor }}
           onClick={handleHeartClick}
         />,
-        <EditIcon key="edit" onClick={() => handleEditClick(user)} />,
+        <EditIcon
+          key="edit"
+          onClick={() => handleEditClick(user)}
+        />,
         <DeleteIcon
           key="ellipsis"
           onClick={() => handleDeleteClick(user.id)}
         />,
       ]}
       style={{ width: 300 }}
-      cover={
-        <img
-          alt={`${user.name}'s cover`}
-          src={CardDetailsData?.CardDetails.DEFAULT_COVER_IMAGE}
-        />
-      }
+      cover={<img alt={`${user.name}'s avatar`} src={user.avatarUrl} />}
     >
       <Meta
         title={user.name}
