@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../../features/user/userSlice";
 import UserCardItem from "../common/UserCardItem";
 import EditUserModal from "../common/EditUserModal";
-import { Skeleton } from "antd";
 import { fetchUserDetails } from "../../api/userApi";
 import useEditUserModal from "../../hooks/useEditUserModal";
 import "./UserCard.css";
+import Loader from "../common/loader/Loader";
+import translations from "../../translation/traslation.json";
 
 const UserCard = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,11 @@ const UserCard = () => {
 
   const renderCards = () => {
     if (loading) {
-      return <Skeleton active />;
+      return <Loader />;
+    }
+
+    if (!users.length) {
+      return <p>{translations.errorMessage.noUserAvailable}</p>;
     }
 
     return users.map((user) => (
