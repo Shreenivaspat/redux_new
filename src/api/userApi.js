@@ -7,8 +7,7 @@ export const fetchUserDetails = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get(ENDPOINTS.USER_DETAILS);
-      console.log(response.data, "response2123");
-      return response.data; // Return the data if the request is successful
+      return response.data;
     } catch (err) {
       if (!err.response) {
         // Handle the case where there is no response from the server
